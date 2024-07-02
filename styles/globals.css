@@ -1,0 +1,44 @@
+/* Import Tailwind's base styles */
+@tailwind base;
+
+/* Import Tailwind's component styles */
+@tailwind components;
+
+/* Import Tailwind's utility styles */
+@tailwind utilities;
+
+/* Define CSS variables for light theme colors */
+:root {
+  --foreground-rgb: 12, 10, 9;            /* Foreground color in RGB format */
+  --background-start-rgb: 255, 255, 255;  /* Start color for the background gradient */
+  --background-end-rgb: 255, 255, 255;    /* End color for the background gradient */
+}
+
+/* Define CSS variables for dark theme colors */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 245, 245, 245;      /* Foreground color in RGB format for dark theme */
+    --background-start-rgb: 23, 23, 23;   /* Start color for the background gradient in dark theme */
+    --background-end-rgb: 0, 0, 0;        /* End color for the background gradient in dark theme */
+  }
+}
+
+/* Apply the defined colors to the body element */
+body {
+  color: rgb(var(--foreground-rgb));      /* Set the text color using the CSS variable */
+  background: linear-gradient(            /* Set the background gradient using the CSS variables */
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+/* Define custom utility classes */
+@layer utilities {
+  /* Utility class for balanced text wrapping */
+  .text-balance {
+    overflow-wrap: break-word;
+  }
+}
+

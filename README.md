@@ -1,36 +1,177 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Test Assignment: Posts Application
 
-## Getting Started
+## Description
 
-First, run the development server:
+This project is a simple application that displays a list of posts fetched from an API and allows users to mark posts as favorite. The application includes the following features:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+1. **Posts Page**:
+    - Fetches and displays real data from [JSONPlaceholder](https://jsonplaceholder.typicode.com/posts).
+    - User can add and remove posts from favorites. Favorite status updates everywhere in the app.
+    - Clicking on a post redirects to the post page.
+    - Each post displays a user avatar with the first letters of the user's first and last names, and the avatar color is random for each user.
+
+2. **Post Page**:
+    - Fetches and displays real data for a specific post from [JSONPlaceholder](https://jsonplaceholder.typicode.com/posts/:id).
+    - The post pages are generated on the server side.
+    - Allows adding and removing the post from favorites from this page as well.
+    - Displays comments for the post fetched from [JSONPlaceholder](https://jsonplaceholder.typicode.com/posts/:id/comments).
+
+3. **Technical Requirements**:
+    - Built with React and Next.js.
+    - Uses Redux for state management.
+    - Written in TypeScript.
+    - Enforces code quality with ESLint.
+    - Styled with Tailwind CSS.
+
+## Installation
+
+Follow these steps to set up and run the project:
+
+1. **Clone the repository**:
+    ```sh
+    git clone https://github.com/your-username/posts-app.git
+    cd posts-app
+    ```
+
+2. **Install dependencies**:
+    ```sh
+    npm install
+    ```
+
+3. **Run the development server**:
+    ```sh
+    npm run dev
+    ```
+
+4. **Open your browser** and navigate to [http://localhost:3000](http://localhost:3000) to see the application running.
+
+## Project Structure
+
+The project has the following structure:
+```sh
+my-blog/
+├── components/
+│   ├── Avatar.tsx
+│   ├── Breadcrumb.tsx
+│   ├── HeartIcon.tsx
+│   ├── Post.tsx
+├── features/
+│   └── posts/
+│       ├── postsSlice.ts
+│       ├── types.ts
+├── pages/
+│   ├── _app.tsx
+│   ├── index.tsx
+│   └── posts/
+│       └── [id].tsx
+├── public/
+├── styles/
+│   └── globals.css
+├── .eslintrc.js
+├── tailwind.config.js
+├── tsconfig.json
+├── package.json
+└── README.md
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Components
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+- **Avatar**: Displays a user's avatar with initials and a random background color.
+- **Breadcrumb**: Shows the navigation path for the current page.
+- **HeartIcon**: Displays a heart icon to mark/unmark a post as favorite.
+- **Post**: Displays an individual post with its title, body, avatar, and favorite icon.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Pages
 
-## Learn More
+- **index.tsx**: The main page that displays the list of posts.
+- **[id].tsx**: The post page that displays the details of a specific post and its comments.
 
-To learn more about Next.js, take a look at the following resources:
+## Redux
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- **postsSlice.ts**: Contains the Redux slice for managing posts and favorite status.
+- **types.ts**: Defines the TypeScript types for Post and Comment.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+## Styles
 
-## Deploy on Vercel
+- **globals.css**: Contains global styles and Tailwind CSS configuration.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## ESLint Configuration
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+The project uses ESLint for code quality and consistency. The ESLint configuration is as follows:
+
+```js
+module.exports = {
+    env: {
+        browser: true,
+        es2021: true,
+    },
+    extends: [
+        'plugin:react/recommended',
+        'airbnb',
+        'plugin:@typescript-eslint/recommended',
+        'plugin:prettier/recommended',
+        'plugin:tailwindcss/recommended',
+    ],
+    parser: '@typescript-eslint/parser',
+    parserOptions: {
+        ecmaFeatures: {
+            jsx: true,
+        },
+        ecmaVersion: 12,
+        sourceType: 'module',
+    },
+    plugins: [
+        'react',
+        '@typescript-eslint',
+        'tailwindcss',
+    ],
+    rules: {
+        'react/jsx-filename-extension': [1, { extensions: ['.tsx'] }],
+        '@typescript-eslint/explicit-module-boundary-types': 'off',
+    },
+    settings: {
+        react: {
+            version: 'detect',
+        },
+    },
+};
+```
+## Tailwind CSS Configuration
+
+The Tailwind CSS configuration is defined in globals.css:
+
+```css
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --foreground-rgb: 12, 10, 9;
+  --background-start-rgb: 255, 255, 255;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 245, 245, 245;
+    --background-start-rgb: 23, 23, 23;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+
+@layer utilities {
+  .text-balance {
+      overflow-wrap: break-word;
+  }
+}
+```
